@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(658, 447);
             this.Name = "frnservice";
             this.Text = "frnservice";
+            this.Load += new System.EventHandler(this.frnservice_Load);
             this.ResumeLayout(false);
 
         }

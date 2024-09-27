@@ -17,14 +17,22 @@ namespace LucerosLaundry
         frmcustomer cust = new frmcustomer();
         GlobalProcedure g_proc = new GlobalProcedure();
         int row;
+        private int selectedRowIndex = -1;
 
         public frmsearchcustomer()
         {
             InitializeComponent();
             g_proc.fncConnectTODatabase();
             DisplayAllCustomer();
+            procGetCustomer();
+            datagridvalue.CellClick += datagridvalue_CellContentClick;
         }
 
+        public void procGetCustomer()
+        {
+            
+            DisplayAllCustomer();
+        }
         public void DisplayAllCustomer()
         {
             try
@@ -118,6 +126,10 @@ namespace LucerosLaundry
         public void datagridvalue_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+            if (e.RowIndex >= 0)
+            {
+                selectedRowIndex = e.RowIndex;
+            }
         }
         public void btnsearch_Click(object sender, EventArgs e)
         {
@@ -125,6 +137,66 @@ namespace LucerosLaundry
         }
 
         private void btnedit_Click(object sender, EventArgs e)
+        {
+
+            frmeditcustomer edit;
+            if (selectedRowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = datagridvalue.Rows[selectedRowIndex];
+
+                int id = Convert.ToInt32(selectedRow.Cells[0].Value);
+                string Fullname = selectedRow.Cells[1].Value.ToString();
+                DateTime birthdate = DateTime.Parse(selectedRow.Cells[2].Value.ToString());
+                string Gender = selectedRow.Cells[3].Value.ToString();
+                Console.WriteLine(Gender);
+                string Address = selectedRow.Cells[4].Value.ToString();
+                string contactNo = selectedRow.Cells[5].Value.ToString();
+                string emailAddress = selectedRow.Cells[6].Value.ToString();
+
+                edit = new frmeditcustomer(id, Fullname, birthdate, Gender, Address, contactNo, emailAddress);
+                Hide();
+                edit.ShowDialog();
+
+                if (edit.ShowDialog() == DialogResult.OK)  // Check if the user clicked Save
+                {
+                    
+                    procGetCustomer();
+
+                    
+                    datagridvalue.Refresh();
+                    Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to edit.");
+            }
+        }
+
+        private void btncustomerdelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                g_proc.sqlCommand.Parameters.Clear();
+                g_proc.sqlCommand.CommandText = "procDeleteCustomer";
+                g_proc.sqlCommand.CommandType = CommandType.StoredProcedure;
+                g_proc.sqlCommand.Parameters.AddWithValue("@p_id", Convert.ToInt32(datagridvalue.CurrentRow.Cells[0].Value));
+                g_proc.sqlCommand.ExecuteNonQuery();
+
+                MessageBox.Show("Delete Record Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // redisplay datagrid to update list of records
+                DisplayAllCustomer();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex.Message);
+            }
+        }
+
+        private void frmsearchcustomer_Load(object sender, EventArgs e)
         {
 
         }

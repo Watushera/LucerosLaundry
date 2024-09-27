@@ -44,7 +44,6 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.pictureBoxsearch = new System.Windows.Forms.PictureBox();
             this.btnedit = new System.Windows.Forms.Button();
-            this.btndelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.datagridvalue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsearch)).BeginInit();
             this.SuspendLayout();
@@ -165,6 +164,7 @@
             this.btncustomerdelete.TabIndex = 4;
             this.btncustomerdelete.Text = "DELETE";
             this.btncustomerdelete.UseVisualStyleBackColor = true;
+            this.btncustomerdelete.Click += new System.EventHandler(this.btncustomerdelete_Click);
             // 
             // lblTotal
             // 
@@ -199,25 +199,12 @@
             this.btnedit.UseVisualStyleBackColor = true;
             this.btnedit.Click += new System.EventHandler(this.btnedit_Click);
             // 
-            // btndelete
-            // 
-            this.btndelete.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btndelete.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btndelete.BackgroundImage")));
-            this.btndelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btndelete.Location = new System.Drawing.Point(304, 333);
-            this.btndelete.Name = "btndelete";
-            this.btndelete.Size = new System.Drawing.Size(110, 23);
-            this.btndelete.TabIndex = 8;
-            this.btndelete.Text = "DELETE";
-            this.btndelete.UseVisualStyleBackColor = true;
-            // 
             // frmsearchcustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSlateGray;
             this.ClientSize = new System.Drawing.Size(658, 447);
-            this.Controls.Add(this.btndelete);
             this.Controls.Add(this.btnedit);
             this.Controls.Add(this.pictureBoxsearch);
             this.Controls.Add(this.lblTotal);
@@ -227,6 +214,7 @@
             this.Controls.Add(this.btnsearch);
             this.Name = "frmsearchcustomer";
             this.Text = "frmsearchcustomer";
+            this.Load += new System.EventHandler(this.frmsearchcustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.datagridvalue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsearch)).EndInit();
             this.ResumeLayout(false);
@@ -250,6 +238,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EMAILADD;
         private System.Windows.Forms.PictureBox pictureBoxsearch;
         private System.Windows.Forms.Button btnedit;
-        private System.Windows.Forms.Button btndelete;
     }
 }
